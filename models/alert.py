@@ -2,26 +2,28 @@ from typing import Dict
 from models.item import Item
 import uuid
 from models.model import Model
+from common.database import Database
+from dataclasses import dataclass, field
 
 
+@dataclass(eq=False)
 class Alert(Model):
-    collection = 'alerts'
+    collection: str = field(init=False, default='alerts')
+    name: str
+    item_id: str
+    price_limit: float
+    _id: str = field(default_factory=lambda: uuid.uuid4().hex)
 
-    def __init__(self, item_id: str, price_limit: float, _id: str = None):
-        self.item_id = item_id
-        self.item = Item.get_by_id(item_id)
-        self.price_limit = price_limit
-        self._id = _id or uuid.uuid4().hex
+    def __post_init__(self):
+        self.item = Item.get_by_id(self.item_id)
 
     def json(self) -> Dict:
         return {
             "_id": self._id,
-            "price_limit": self.price_limit,
-            "item_id": self.item_id
+            "name": self.name,
+            "item_id": self.item_id,
+            "price_limit": self.price_limit
         }
-
-    def save_to_mongo(self):
-        Database.insert(self.collection, self.json())
 
     def load_item_price(self):
         self.item.load_price()

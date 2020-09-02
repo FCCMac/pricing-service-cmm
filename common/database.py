@@ -18,7 +18,7 @@ class Database(object):
         f.close
 
         db = 'pricing'
-        Database.URI = "mongodb+srv://{}:{}@cluster0.sfoyz.mongodb.net/<dbname>?retryWrites=true&w=majority".format(
+        Database.URI = "mongodb+srv://{}:{}@cluster0.sfoyz.mongodb.net/{}?retryWrites=true&w=majority".format(
             user, password, db)
 
         client = pymongo.MongoClient(Database.URI)
