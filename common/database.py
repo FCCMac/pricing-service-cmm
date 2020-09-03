@@ -10,12 +10,8 @@ class Database(object):
 
     @staticmethod
     def initialize(): 
-        user = os.environ.get('DB_USER')
-        password = os.environ.get('DB_PASSWORD')
-
         db = 'pricing'
-        Database.URI = "mongodb+srv://{}:{}@cluster0.sfoyz.mongodb.net/{}?retryWrites=true&w=majority".format(
-            user, password, db)
+        Database.URI = os.environ.get('DB_URI')
 
         client = pymongo.MongoClient(Database.URI)
         Database.DATABASE = client[db]
