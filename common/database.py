@@ -9,13 +9,9 @@ class Database(object):
     DATABASE = None
 
     @staticmethod
-    def initialize():
-        # retrieve login info
-        f = open(os.path.join(sys.path[0], 'db_config.json'))
-        config = json.load(f)
-        user = config['user']
-        password = config['password']
-        f.close
+    def initialize(): 
+        user = os.environ.get('DB_USER')
+        password = os.environ.get('DB_PASSWORD')
 
         db = 'pricing'
         Database.URI = "mongodb+srv://{}:{}@cluster0.sfoyz.mongodb.net/{}?retryWrites=true&w=majority".format(
