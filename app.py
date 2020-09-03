@@ -14,10 +14,13 @@ app = Flask(__name__)
 app.secret_key = ''.join(random.choices(
     string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10))
 app.config.update(
-    ADMIN=os.environ.get('ADMIN')
+    ADMIN=os.environ.get('ADMIN'),
+    DEBUG=False
 )
 
-Database.initialize()
+@app.before_first_request
+def init_db():
+    Database.initialize()
 
 
 @app.route('/')
