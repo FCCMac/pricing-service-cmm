@@ -5,7 +5,6 @@ import sys
 
 
 class Database(object):
-    URI = "mongodb+srv://{}:{}@cluster0.sfoyz.mongodb.net/<dbname>?retryWrites=true&w=majority"
     DATABASE = None
 
     @staticmethod
@@ -14,7 +13,7 @@ class Database(object):
         Database.URI = os.environ.get('DB_URI')
 
         client = pymongo.MongoClient(Database.URI)
-        Database.DATABASE = client[db]
+        Database.DATABASE = client.get_default_database()
 
     @staticmethod
     def insert(collection, data):
