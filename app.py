@@ -18,9 +18,7 @@ app.config.update(
     DEBUG=False
 )
 
-@app.before_first_request
-def init_db():
-    Database.initialize()
+Database.initialize()
 
 
 @app.route('/')
