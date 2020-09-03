@@ -12,13 +12,32 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
-                    <div class="navbar-nav">
-                        <a href="{{ url_for('stores.index') }}" class="nav-item nav-link">Stores</a>
-                        <a href="{{ url_for('alerts.index') }}" class="nav-item nav-link">Alerts</a>
-                        <a href="{{ url_for('users.login_user') }}" class="nav-item nav-link">Log in</a>
-                        <a href="{{ url_for('users.register_user') }}" class="nav-item nav-link">Sign up</a>
-                    </div>
+                <div class="navbar-collapse collapse justify-content-between">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('stores.index') }}" class="nav-item nav-link">Stores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('alerts.index') }}" class="nav-item nav-link">Alerts</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if not session['email'] %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.login_user') }}" class="nav-item nav-link">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.register_user') }}" class="nav-item nav-link">Sign up</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.logout_user') }}" class="nav-item nav-link">Log out</a>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </nav>
 
